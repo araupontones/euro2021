@@ -30,9 +30,12 @@ download_possession <- function(match_url,
   #clean names and format correctly
   possesion <- table_possession %>%
     rename(Player = `-Player`,
-           Touches = `Touches-Touches`) %>%
+           Touches = `Touches-Touches`,
+           Tot_distance = `Carries-TotDist`) %>%
     filter(!str_detect(Player,"Player")) %>%
-    mutate(Touches = as.numeric(Touches))
+    mutate(across(c(Touches,Tot_distance), function(x){as.numeric(x)}))
+                        
+    #mutate(Touches = as.numeric(Touches))
   
   
   #import data of players
@@ -41,10 +44,12 @@ download_possession <- function(match_url,
   #fetch attributes from players into possetion
   stats <- possesion %>%
     left_join(players, by = "Player") %>%
-    select(Player, Touches, name) %>%
+    select(Player, Touches,Tot_distance, name) %>%
     mutate(image = here("images", paste0(name, ".png")),
            name_label = str_remove(name, "[a-zA-Z]{2,}-"),
-           perc_touches = Touches / sum(Touches))
+           perc_touches = Touches / sum(Touches),
+           Tot_distance = Tot_distance / 1.094) %>%
+    distinct()
   
   return(stats)
   

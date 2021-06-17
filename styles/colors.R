@@ -6,3 +6,4 @@ loadfonts(dev = 'win')
 
 red_spain <- "#E4020C"
 blue_france <- "#13339D"
+red_france <- "#ED2F3E"
