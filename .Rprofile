@@ -1,5 +1,15 @@
 #define paths
 
+options(defaultPackages=c(getOption("defaultPackages"),
+                          "cowplot","extrafont",
+                          "glue","ggplot2","ggtext","ggimage", "ggrepel", "ggflags",
+                          "httr","here","janitor",
+                           "rio","rio","rvest",
+                          "stringr",
+                          "dplyr" ))
+
+
+
 dir_data <- "data"
 dir_data_players <- file.path(dir_data, "players")
 dir_functions <- "functions"
@@ -21,8 +31,9 @@ load_functions <- function(dir){
   }
 }
 
-load_functions(dir_functions)
-load_functions(dir_style)
 
+load_functions(dir_functions)
 
 message("Euro 2021!")
+
+

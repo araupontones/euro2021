@@ -1,11 +1,20 @@
-#get ingormation of players
+#get information of players
+
+countries <- import(file.path(dir_data, "all_countries.rds")) 
+countries <- unique(countries$country)
 
 
-
+countries
 #scrap table with information of players
-country <- "Spain"
+
+for(c in countries){
+
+
+country <- c
+message(country)
 
 players_df <- tibble_players(pais = country) #defined in functions (add the url to R/tibble_url_squads)
+
 
 
 if(sum(is.na(players_df$img)) >0){
@@ -15,6 +24,10 @@ if(sum(is.na(players_df$img)) >0){
 }
 
 export(players_df, file.path(dir_data_players, glue("{country}.rds")))
+
+}
+
+
 
 
 

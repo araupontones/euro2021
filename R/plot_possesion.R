@@ -1,21 +1,13 @@
-library(janitor)
-library(ggplot2)
-library(ggtext)
-library(ggimage)
-library(here)
-library(rvest)
-library(stringr)
-library(glue)
-library(rio)
-library(dplyr)
+
+load_functions(dir_style)
 
 
 
 #define paramenters
-match_url <- "https://fbref.com/en/matches/95d34c87/France-Germany-June-15-2021-UEFA-Euro"
-png_name <- "France_vs_germany.png"
-squad <- "France" #Squad to download data from
-
+match_url <- "https://fbref.com/en/matches/107fd412/Spain-Sweden-June-14-2021-UEFA-Euro"
+png_name <- "SpainvsSweden_pss.png"
+squad <- "Spain" #Squad to download data from
+match <- "Spain VS Sweden"
 
 
 #download data of possession (function in functions)

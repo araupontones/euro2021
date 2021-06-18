@@ -14,4 +14,5 @@ legend.text = element_text(size = 18),
 text = element_text(family= "IBM Plex Mono"),
 plot.caption = element_text(size = 16, margin = margin(t = 25, b = 15), hjust = 1),
 plot.title = element_text(size = 32, hjust = 0.5),
-plot.subtitle = element_text(size = 18, margin = margin(t = 5, b = 30), hjust = 0.5))
+plot.subtitle = element_text(size = 18, margin = margin(t = 5, b = 30), hjust = 0.5)
+)

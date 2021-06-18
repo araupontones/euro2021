@@ -12,10 +12,13 @@ tibble_players <- function(pais,
   #get url of squad ---------------------------------------------------------
   tible_squads <- import(file.path(dir_data, "url_squads.rds"))
   
+  
+  
   url <- tible_squads %>%
     filter(country == pais) %>%
     pull(url)
   
+  print(url)
   
   website <- read_html(url)
   
@@ -48,19 +51,26 @@ tibble_players <- function(pais,
   #clean players ----------------------------------------------------------------
   names(players_raw) <- as.character(players_raw[1,])
   
+  #print(players_raw)
+ 
   
   players_clean <- players_raw %>%
-    select(Player) %>%
+    select(Player, Pos, Age) %>%
     filter(!Player %in% c("Player", "Squad Total", "Opponent Total")) %>%
     mutate(name = str_replace_all(Player, " ", "-"),
            name = stringi::stri_trans_general(name, "Latin-ASCII"),
            name = str_replace_all(name, "'", ""),
-           country = country) %>%
+           country = country,
+           Age = str_replace(Age, "-", "."),
+           Age = as.numeric(Age),
+           #because some players come with two Pos
+           Pos = str_extract(Pos, "[A-Z]{2,}")
+                           ) %>%
     left_join(links, by="name")
-  
-  
-  
-  
+
+
+ 
+
   return(players_clean)
   
   

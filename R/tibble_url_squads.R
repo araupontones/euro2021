@@ -1,17 +1,33 @@
-#create tibble with url of the squads
+url <- 'https://fbref.com/en/comps/676/UEFA-Euro-Stats'
 
 
-url_squads <- tibble(
+website <- read_html(url)
+
+
+
+
+#get url of squads-----------------------------------------------------------
+
+
+raw <- tibble(
+url = website %>%
+  html_elements("#results102780_overall") %>%
+  html_elements("a") %>%
+  html_attr("href"),
   
-  country= c("France", 
-            "Germany",
-            "Spain"
-             ),
-  url = c("https://fbref.com/en/squads/b1b36dcd/France-Stats",
-         "https://fbref.com/en/squads/c1e40422/Germany-Stats",
-         "https://fbref.com/en/squads/b561dd30/Spain-Stats"
-         )
+  
+country =website %>%
+    html_elements("#results102780_overall") %>%
+    html_elements("a") %>%
+    html_text()
 )
 
 
-export(url_squads, file.path(dir_data, "url_squads.rds"))
+#clean ------------------------------------------------------------------------
+clean <- raw %>%
+  dplyr::filter(str_detect(url,"squad")) %>%
+  mutate(id_country = str_extract(url, "(?<=squads\\/)(.*)(?=\\/)"),
+         url = paste0("https://fbref.com", url),
+         country = str_replace(country, " ", "-"))
+
+export(clean, file.path(dir_data, "url_squads.rds"))

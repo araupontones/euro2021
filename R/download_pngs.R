@@ -1,11 +1,10 @@
-library(httr)
 
 
+players <-import(file.path(dir_data, "all_players.rds")) 
+
+countries <- unique(players$country)
 
 
-
-players <- import(file.path(dir_data, "all_players.rds")) %>%
-  filter(country == "Spain")
 
 save_png <- function(i){
   
@@ -17,7 +16,7 @@ save_png <- function(i){
   
   message(name)
   
-  print(class(url))
+ # print(class(url))
 
   r <- GET(url)
   
@@ -25,21 +24,37 @@ save_png <- function(i){
   exdir <- file.path("images")
 
   exfile <- file.path(exdir, glue("{name}.png"))
+  
+  if(!file.exists(exfile)){
 
   filecon <- file(exfile, "wb")
   #write data contents to download file
   writeBin(r$content, filecon)
   #close the connection
   close(filecon)
+  
+  }
 
   
   
 }
 
-ids <- unique(players$id)
 
-for(i in ids){
-  message(i)
+for(c in countries){
   
-  save_png(i)
+    message(c)
+    squad <- players %>%
+    filter(country == c)
+    
+    ids <- unique(squad$id)
+    
+    for(i in ids){
+      message(i)
+      
+      save_png(i)
+    }
+  
 }
+
+
+

@@ -3,7 +3,7 @@
 #' @param fecha Date of the chart (25th June, 2021)
 #' @param title_label Title of the chart
 #' @param subtitle_label Subtitle of the chart
-
+#'@param cut_distance Min number to display text in chart
 
 
 plot_distance <- function(db,
@@ -12,6 +12,7 @@ plot_distance <- function(db,
                           subtitle_label = "France covered 1.3km with the ball controlled.",
                           color_low,
                           color_high,
+                          cut_distance,
                           ...
 ){
   
@@ -35,7 +36,8 @@ plot_distance <- function(db,
   ) +
     #bars ---------------------------------------------------------------------
     geom_col(width = .8) +
-    geom_text(aes(label = paste0(round(Tot_distance),"mts."),
+    geom_text(data = filter(db,Tot_distance > cut_distance),
+              aes(label = paste0(round(Tot_distance),"mts."),
                   x = Tot_distance
     ),
     hjust = 1,
