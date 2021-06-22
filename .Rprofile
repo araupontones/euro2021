@@ -6,7 +6,7 @@ options(defaultPackages=c(getOption("defaultPackages"),
                           "httr","here","janitor",
                            "rio","rio","rvest",
                           "stringr",
-                          "dplyr" ))
+                          "dplyr", "tidyr" ))
 
 
 
