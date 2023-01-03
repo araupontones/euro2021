@@ -29,5 +29,6 @@ clean <- raw %>%
   mutate(id_country = str_extract(url, "(?<=squads\\/)(.*)(?=\\/)"),
          url = paste0("https://fbref.com", url),
          country = str_replace(country, " ", "-"))
+View(clean)
 
 export(clean, file.path(dir_data, "url_squads.rds"))

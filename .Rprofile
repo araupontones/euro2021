@@ -2,15 +2,18 @@
 
 options(defaultPackages=c(getOption("defaultPackages"),
                           "cowplot","extrafont",
-                          "glue","ggplot2","ggtext","ggimage", "ggrepel", "ggflags",
+                          "glue","ggplot2","ggtext","ggimage", "ggrepel", "ggflags","ggsoccer", "grid",
                           "httr","here","janitor",
+                          "patchwork","png",
                            "rio","rio","rvest",
                           "stringr",
                           "dplyr", "tidyr" ))
 
 
 
+
 dir_data <- "data"
+dir_data_charts <- file.path(dir_data, "for_charts")
 dir_data_players <- file.path(dir_data, "players")
 dir_functions <- "functions"
 dir_style <- "styles"

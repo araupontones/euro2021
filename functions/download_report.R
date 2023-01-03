@@ -4,7 +4,10 @@
 
 download_report <- function(team = country){
   
+  cli::cli_alert_info(team)
   this_country <- filter(squads, country == team)
+  
+ 
   
   #fetch url and id of country
   url <- this_country$url
@@ -37,7 +40,7 @@ download_report <- function(team = country){
   #all the matches of the squad
   matches_url <- squad_df$url_match
   
-  print(matches_url)
+  #print(matches_url)
   
   #download all the data of the squad
   tables_list <- purrr::map(matches_url, scrap_match_reports, team = team)
